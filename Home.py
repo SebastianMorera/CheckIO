@@ -68,6 +68,14 @@ def even_the_last(array: list) -> int:
     return res
 
 
+def left_join(phrases: tuple) -> str:
+    res = ",".join(map(str, phrases))
+    if res.find("right") != -1:
+        res = res.replace("right", "left")
+
+    return res
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -101,3 +109,9 @@ if __name__ == '__main__':
     assert even_the_last([6]) == 36, "(6)*6=36"
     assert even_the_last([]) == 0, "An empty array = 0"
     print("Even last completed!")
+
+    assert left_join(("left", "right", "left", "stop")) == "left,left,left,stop", "All to left"
+    assert left_join(("bright aright", "ok")) == "bleft aleft,ok", "Bright Left"
+    assert left_join(("brightness wright",)) == "bleftness wleft", "One phrase"
+    assert left_join(("enough", "jokes")) == "enough,jokes", "Nothing to replace"
+    print("Left join completed")

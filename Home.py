@@ -76,6 +76,30 @@ def left_join(phrases: tuple) -> str:
     return res
 
 
+def backward_string_by_word(text: str) -> str:
+    words = text.split(" ")
+    print(words)
+    newWords = [word[::-1] for word in words]
+    print(newWords)
+    newSentence = " ".join(newWords)
+    print(newSentence)
+    return newSentence
+    # doubleSpace = text.find("  ")
+    #
+    # reverse = []
+    # phrase = text.split(" ")
+    # for word in phrase:
+    #     new_word = word[::-1]
+    #     reverse.append(new_word)
+    #
+    # if doubleSpace == -1:
+    #     res = ' '.join(reverse)
+    # else:
+    #     reverse.insert(doubleSpace, " ")
+    #     res = ' '.join(reverse)
+    # return res
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -115,3 +139,11 @@ if __name__ == '__main__':
     assert left_join(("brightness wright",)) == "bleftness wleft", "One phrase"
     assert left_join(("enough", "jokes")) == "enough,jokes", "Nothing to replace"
     print("Left join completed")
+
+    assert backward_string_by_word('') == ''
+    assert backward_string_by_word('world') == 'dlrow'
+    assert backward_string_by_word('hello world') == 'olleh dlrow'
+    assert backward_string_by_word('hello   world') == 'olleh   dlrow'
+    assert backward_string_by_word('welcome to a game') == 'emoclew ot a emag'
+    assert backward_string_by_word("ha ha ha   this is cool") == "ah ah ah   siht si looc"
+    print("Backward each word completed")

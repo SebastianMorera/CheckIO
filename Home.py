@@ -78,26 +78,9 @@ def left_join(phrases: tuple) -> str:
 
 def backward_string_by_word(text: str) -> str:
     words = text.split(" ")
-    print(words)
     newWords = [word[::-1] for word in words]
-    print(newWords)
     newSentence = " ".join(newWords)
-    print(newSentence)
     return newSentence
-    # doubleSpace = text.find("  ")
-    #
-    # reverse = []
-    # phrase = text.split(" ")
-    # for word in phrase:
-    #     new_word = word[::-1]
-    #     reverse.append(new_word)
-    #
-    # if doubleSpace == -1:
-    #     res = ' '.join(reverse)
-    # else:
-    #     reverse.insert(doubleSpace, " ")
-    #     res = ' '.join(reverse)
-    # return res
 
 
 if __name__ == '__main__':

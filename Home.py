@@ -83,6 +83,18 @@ def backward_string_by_word(text: str) -> str:
     return newSentence
 
 
+def non_empty_lines(text: str) -> int:
+    res = 0
+    lines = text.split("\n")
+    for line in lines:
+        empty = line.isspace()
+        if len(line) == 0 or empty:
+            continue
+        else:
+            res += 1
+    return res
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -121,7 +133,7 @@ if __name__ == '__main__':
     assert left_join(("bright aright", "ok")) == "bleft aleft,ok", "Bright Left"
     assert left_join(("brightness wright",)) == "bleftness wleft", "One phrase"
     assert left_join(("enough", "jokes")) == "enough,jokes", "Nothing to replace"
-    print("Left join completed")
+    print("Left join completed!")
 
     assert backward_string_by_word('') == ''
     assert backward_string_by_word('world') == 'dlrow'
@@ -129,4 +141,15 @@ if __name__ == '__main__':
     assert backward_string_by_word('hello   world') == 'olleh   dlrow'
     assert backward_string_by_word('welcome to a game') == 'emoclew ot a emag'
     assert backward_string_by_word("ha ha ha   this is cool") == "ah ah ah   siht si looc"
-    print("Backward each word completed")
+    print("Backward each word completed!")
+
+    assert non_empty_lines('one simple line\n') == 1
+    assert non_empty_lines('') == 0
+    assert non_empty_lines('\nonly one line\n            ') == 1
+    assert non_empty_lines('''
+    Lorem ipsum dolor sit amet,
+
+    consectetur adipiscing elit
+    Nam odio nisi, aliquam
+                ''') == 3
+    print("Non empty lines completed!")

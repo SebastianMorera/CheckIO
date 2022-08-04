@@ -1,5 +1,5 @@
 # Home world solutions
-from typing import List, Any
+from typing import List, Any, Iterable  # Iterable is for Ascending List
 
 
 def is_even(num: int) -> bool:
@@ -95,6 +95,25 @@ def non_empty_lines(text: str) -> int:
     return res
 
 
+def is_ascending(items: Iterable[int]) -> bool:
+    res = False
+    if len(items) == 0 or len(items) == 1:
+        res = True
+    else:
+        i = 0
+        for val in items:
+            if i+1 < len(items):
+                if val < items[i+1]:
+                    res = True
+                else:
+                    res = False
+                    break
+            else:
+                break
+            i += 1
+
+    return res
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -153,3 +172,10 @@ if __name__ == '__main__':
     Nam odio nisi, aliquam
                 ''') == 3
     print("Non empty lines completed!")
+
+    assert is_ascending([-5, 10, 99, 123456]) == True
+    assert is_ascending([99]) == True
+    assert is_ascending([4, 5, 6, 7, 3, 7, 9]) == False
+    assert is_ascending([]) == True
+    assert is_ascending([1, 1, 1, 1]) == False
+    print("Ascending list completed!")

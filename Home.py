@@ -115,6 +115,17 @@ def is_ascending(items: Iterable[int]) -> bool:
     return res
 
 
+def remove_min_max(data: set[int], total:int) -> set[int]:
+    if total != 0:
+        for x in range(total):
+            if len(data) >= 2:
+                data.remove(min(data))
+                data.remove(max(data))
+            else:
+                data.clear()
+    return data
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -180,3 +191,11 @@ if __name__ == '__main__':
     assert is_ascending([]) == True
     assert is_ascending([1, 1, 1, 1]) == False
     print("Ascending list completed!")
+
+    assert remove_min_max({8, 9, 18, 7}, 1) == {8, 9}
+    assert remove_min_max({8, 9, 7}, 0) == {8, 9, 7}
+    assert remove_min_max({8, 9, 7}, 2) == set()
+    assert remove_min_max({1, 2, 7, 8, 9}, 2) == {7}
+    assert remove_min_max(set(), 1) == set()
+    print("Shorter set completed!")
+

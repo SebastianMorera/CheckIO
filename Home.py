@@ -114,6 +114,7 @@ def is_ascending(items: Iterable[int]) -> bool:
 
     return res
 
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False

@@ -126,6 +126,38 @@ def remove_min_max(data: set[int], total:int) -> set[int]:
     return data
 
 
+def sum_by_types(items: list) -> tuple[str, int]:
+    res_str = ""
+    res_int = 0
+    for element in items:
+        if isinstance(element, str):
+            res_str += element
+        elif isinstance(element, int):
+            res_int += element
+    return res_str, res_int
+
+
+def sum_numbers(text: str) -> int:
+    res = 0
+    words = text.split()
+    for element in words:
+        if element.isdigit():
+            res += int(element)
+    return res
+
+
+def absolute_sorting(values: list) -> list:
+    res = []
+    for val in values:
+        res.append(abs(val))
+    res.sort()
+    for val in res:
+        if val not in values:
+            i = res.index(val)
+            res[i] = -val
+    return res
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -199,3 +231,30 @@ if __name__ == '__main__':
     assert remove_min_max(set(), 1) == set()
     print("Shorter set completed!")
 
+    assert sum_by_types([]) == ("", 0)
+    assert sum_by_types([1, 2, 3]) == ("", 6)
+    assert sum_by_types(["1", 2, 3]) == ("1", 5)
+    assert sum_by_types(["1", "2", 3]) == ("12", 3)
+    assert sum_by_types(["1", "2", "3"]) == ("123", 0)
+    assert sum_by_types(["size", 12, "in", 45, 0]) == ("sizein", 57)
+    print("Sum by type completed!")
+
+    assert sum_numbers("hi") == 0
+    assert sum_numbers("who is 1st here") == 0
+    assert sum_numbers("my numbers is 2") == 2
+    assert (
+        sum_numbers(
+            "This picture is an oil on canvas "
+            "painting by Danish artist Anna "
+            "Petersen between 1845 and 1910 year"
+        )
+        == 3755
+    )
+    assert sum_numbers("5 plus 6 is") == 11
+    assert sum_numbers("") == 0
+    print("Sum numbers completed!")
+
+    assert absolute_sorting([-20, -5, 10, 15]) == [-5, 10, 15, -20]
+    assert absolute_sorting([1, 2, 3, 0]) == [0, 1, 2, 3]
+    assert absolute_sorting([-1, -2, -3, 0]) == [0, -1, -2, -3]
+    print("Absolute sorting completed!")

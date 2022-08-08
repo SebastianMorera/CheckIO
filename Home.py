@@ -158,6 +158,21 @@ def absolute_sorting(values: list) -> list:
     return res
 
 
+def between_markers(text: str, begin: str, end: str) -> str:
+    start = text.find(begin)
+    finish = text.find(end)
+    if start != -1 and finish != -1:
+        if finish <= start:
+            return ""
+    if start == -1:
+        start = 0
+        begin = ""
+    if finish == -1:
+        finish = len(text)
+    res = text[start+len(begin):finish]
+    return res
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -258,3 +273,12 @@ if __name__ == '__main__':
     assert absolute_sorting([1, 2, 3, 0]) == [0, 1, 2, 3]
     assert absolute_sorting([-1, -2, -3, 0]) == [0, -1, -2, -3]
     print("Absolute sorting completed!")
+
+    assert between_markers('What is >apple<', '>', '<') == "apple", "One sym"
+    assert between_markers("<head><title>My new site</title></head>",
+                           "<title>", "</title>") == "My new site", "HTML"
+    assert between_markers('No[/b] hi', '[b]', '[/b]') == 'No', 'No opened'
+    assert between_markers('No [b]hi', '[b]', '[/b]') == 'hi', 'No close'
+    assert between_markers('No hi', '[b]', '[/b]') == 'No hi', 'No markers at all'
+    assert between_markers('No <hi>', '>', '<') == '', 'Wrong direction'
+    print('Between markers completed!')

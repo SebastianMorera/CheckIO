@@ -1,4 +1,5 @@
 # Home world solutions
+from operator import itemgetter  # operator is for Most wanted letter
 from typing import List, Any, Iterable  # Iterable is for Ascending List
 
 
@@ -173,6 +174,18 @@ def between_markers(text: str, begin: str, end: str) -> str:
     return res
 
 
+def most_wanted_letter(text: str) -> str:
+    dict_letters = {}
+    sentence = sorted(text.lower())
+    for char in sentence:
+        if char.isalpha():
+            if char not in dict_letters:
+                dict_letters[char] = 1
+            else:
+                dict_letters[char] += 1
+    return max(dict_letters.items(), key=itemgetter(1))[0]
+
+
 if __name__ == '__main__':
     assert is_even(2) == True
     assert is_even(5) == False
@@ -282,3 +295,12 @@ if __name__ == '__main__':
     assert between_markers('No hi', '[b]', '[/b]') == 'No hi', 'No markers at all'
     assert between_markers('No <hi>', '>', '<') == '', 'Wrong direction'
     print('Between markers completed!')
+
+    assert most_wanted_letter("Hello World!") == "l", "Hello test"
+    assert most_wanted_letter("How do you do?") == "o", "O is most wanted"
+    assert most_wanted_letter("One") == "e", "All letter only once."
+    assert most_wanted_letter("Oops!") == "o", "Don't forget about lower case."
+    assert most_wanted_letter("AAaooo!!!!") == "a", "Only letters."
+    assert most_wanted_letter("abe") == "a", "The First."
+    assert most_wanted_letter("a" * 9000 + "b" * 1000) == "a", "Long."
+    print("Most wanted letter completed!")

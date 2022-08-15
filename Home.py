@@ -103,8 +103,8 @@ def is_ascending(items: Iterable[int]) -> bool:
     else:
         i = 0
         for val in items:
-            if i+1 < len(items):
-                if val < items[i+1]:
+            if i + 1 < len(items):
+                if val < items[i + 1]:
                     res = True
                 else:
                     res = False
@@ -116,7 +116,7 @@ def is_ascending(items: Iterable[int]) -> bool:
     return res
 
 
-def remove_min_max(data: set[int], total:int) -> set[int]:
+def remove_min_max(data: set[int], total: int) -> set[int]:
     if total != 0:
         for x in range(total):
             if len(data) >= 2:
@@ -170,7 +170,7 @@ def between_markers(text: str, begin: str, end: str) -> str:
         begin = ""
     if finish == -1:
         finish = len(text)
-    res = text[start+len(begin):finish]
+    res = text[start + len(begin):finish]
     return res
 
 
@@ -184,6 +184,68 @@ def most_wanted_letter(text: str) -> str:
             else:
                 dict_letters[char] += 1
     return max(dict_letters.items(), key=itemgetter(1))[0]
+
+
+MORSE = {
+    ".-": "a",
+    "-...": "b",
+    "-.-.": "c",
+    "-..": "d",
+    ".": "e",
+    "..-.": "f",
+    "--.": "g",
+    "....": "h",
+    "..": "i",
+    ".---": "j",
+    "-.-": "k",
+    ".-..": "l",
+    "--": "m",
+    "-.": "n",
+    "---": "o",
+    ".--.": "p",
+    "--.-": "q",
+    ".-.": "r",
+    "...": "s",
+    "-": "t",
+    "..-": "u",
+    "...-": "v",
+    ".--": "w",
+    "-..-": "x",
+    "-.--": "y",
+    "--..": "z",
+    "-----": "0",
+    ".----": "1",
+    "..---": "2",
+    "...--": "3",
+    "....-": "4",
+    ".....": "5",
+    "-....": "6",
+    "--...": "7",
+    "---..": "8",
+    "----.": "9",
+}
+
+
+def morse_decoder(code: str) -> str:
+    code += ' '
+    decipher = ''
+    citext = ''
+    for letter in code:
+        if letter != ' ':
+            i = 0
+            citext += letter
+        else:
+            i += 1  # if i = 1 that indicates a new character
+            if i == 2:  # if i = 2 that indicates a new word
+                decipher += ' '  # adding space to separate words
+            else:
+                for char in MORSE:  # accessing the keys using their values (reverse of encryption)
+                    if citext == char:
+                        decipher += MORSE[char]
+                        break
+                citext = ''
+    res = decipher.capitalize()
+    return res
 
 
 if __name__ == '__main__':
@@ -271,12 +333,12 @@ if __name__ == '__main__':
     assert sum_numbers("who is 1st here") == 0
     assert sum_numbers("my numbers is 2") == 2
     assert (
-        sum_numbers(
-            "This picture is an oil on canvas "
-            "painting by Danish artist Anna "
-            "Petersen between 1845 and 1910 year"
-        )
-        == 3755
+            sum_numbers(
+                "This picture is an oil on canvas "
+                "painting by Danish artist Anna "
+                "Petersen between 1845 and 1910 year"
+            )
+            == 3755
     )
     assert sum_numbers("5 plus 6 is") == 11
     assert sum_numbers("") == 0
@@ -304,3 +366,10 @@ if __name__ == '__main__':
     assert most_wanted_letter("abe") == "a", "The First."
     assert most_wanted_letter("a" * 9000 + "b" * 1000) == "a", "Long."
     print("Most wanted letter completed!")
+
+    assert morse_decoder("... --- -- .   - . -..- -") == "Some text"
+    assert (
+            morse_decoder("..   .-- .- ...   -... --- .-. -.   .. -.   .---- ----. ----. -----")
+            == "I was born in 1990"
+    )
+    print("Morse decoder completed!")

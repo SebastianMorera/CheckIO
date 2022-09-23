@@ -13,6 +13,15 @@ def is_even(num: int) -> bool:
         print("Incorrect input value")
         return False
 
+def duplicate_zeros(donuts: list) -> list:
+    res = []
+    for num in donuts:
+        if num == 0:
+            res.append(0)
+            res.append(0)
+        else:
+            res.append(num)
+    return res
 
 def replace_last(line: list) -> list:
     if len(line) == 0:
@@ -253,6 +262,11 @@ if __name__ == '__main__':
     assert is_even(5) == False
     assert is_even(0) == True
     print("Is even completed!")
+
+    assert duplicate_zeros([1, 0, 2, 3, 0, 4, 5, 0]) == [1, 0, 0, 2, 3, 0, 0, 4, 5, 0, 0]
+    assert duplicate_zeros([0, 0, 0, 0]) == [0, 0, 0, 0, 0, 0, 0, 0]
+    assert duplicate_zeros([100, 10, 0, 101, 1000]) == [100, 10, 0, 0, 101, 1000]
+    print("Duplicate zeros completed!")
 
     assert replace_last([2, 3, 4, 1]) == [1, 2, 3, 4]
     assert replace_last([1, 2, 3, 4]) == [4, 1, 2, 3]
